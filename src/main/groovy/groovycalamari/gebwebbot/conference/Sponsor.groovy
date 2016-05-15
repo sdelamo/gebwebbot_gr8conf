@@ -1,4 +1,4 @@
-package groovycalamari.gebwebbot.gr8conf
+package groovycalamari.gebwebbot.conference
 
 import groovy.transform.CompileStatic
 
@@ -6,4 +6,5 @@ import groovy.transform.CompileStatic
 class Sponsor {
     String imageUrl
     String url
+    String kind
 }
