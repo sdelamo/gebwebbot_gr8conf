@@ -1,5 +1,6 @@
 ext {
     groovyVersion = '2.4.6'
+    spockCoreVersion = '1.0-groovy-2.4'
 }
 
 apply plugin: 'groovy'
@@ -11,6 +12,9 @@ repositories {
 
 dependencies {
     compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    testCompile("org.spockframework:spock-core:$spockCoreVersion") {
+        exclude group: "org.codehaus.groovy"
+    }
 }
 
 codenarcMain {
@@ -19,6 +23,6 @@ codenarcMain {
 }
 
 codenarcTest {
-    ignoreFailures true
+    ignoreFailures false
     configFile file('codenarc/codenarcTest.groovy')
 }
