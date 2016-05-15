@@ -2,6 +2,7 @@ ext {
     groovyVersion = '2.4.6'
     spockCoreVersion = '1.0-groovy-2.4'
     gebVersion = '0.13.1'
+    seleniumVersion = '2.53.0'
 }
 
 apply plugin: 'groovy'
@@ -17,6 +18,8 @@ dependencies {
     testCompile("org.spockframework:spock-core:$spockCoreVersion") {
         exclude group: "org.codehaus.groovy"
     }
+
+    compile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
 }
 
 codenarcMain {
