@@ -1,1 +1,24 @@
+ext {
+    groovyVersion = '2.4.6'
+}
+
 apply plugin: 'groovy'
+apply plugin: "codenarc"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+}
+
+codenarcMain {
+    ignoreFailures false
+    configFile file('codenarc/codenarc.groovy')
+}
+
+codenarcTest {
+    ignoreFailures true
+    configFile file('codenarc/codenarcTest.groovy')
+}
