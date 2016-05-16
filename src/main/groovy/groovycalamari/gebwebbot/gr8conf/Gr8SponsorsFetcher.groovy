@@ -1,7 +1,7 @@
 package groovycalamari.gebwebbot.gr8conf
 
-import groovycalamari.gebwebbot.conference.SponsorFetcher
 import groovycalamari.gebwebbot.conference.Sponsor
+import groovycalamari.gebwebbot.conference.SponsorFetcher
 import groovycalamari.gebwebbot.geb.Fetcher
 import groovycalamari.gebwebbot.gr8conf.geb.Gr8ConfEuHomePage
 
@@ -12,10 +12,8 @@ class Gr8SponsorsFetcher implements SponsorFetcher, Fetcher {
         def result = [] as Set<Sponsor>
         browser.drive(baseUrl: Gr8EuWebsite.BASE_URL) {
             to Gr8ConfEuHomePage
-            if ( hasSponsorSections() ) {
-                for (int i = 0; i < sponsorSections.size(); i++ ) {
-                    result +=  fetchSponsorsAtSection(sponsorSection(i))
-                }
+            for (int i = 0; i < sponsorSections.size(); i++ ) {
+                result +=  fetchSponsorsAtSection(sponsorSection(i))
             }
         }
         result

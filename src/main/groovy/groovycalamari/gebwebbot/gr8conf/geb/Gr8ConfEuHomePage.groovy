@@ -6,11 +6,7 @@ class Gr8ConfEuHomePage extends Page {
     static url = '#/'
 
     static content = {
-        sponsorSections(required: false) { $('div.sponsors') }
-        sponsorSection(required: false)  { i -> module Gr8ConfSponsorSectionModule, $('div.sponsors', i) }
-    }
-
-    boolean hasSponsorSections() {
-        !sponsorSections.empty
+        sponsorSections(wait: true, required: false) { $('div.sponsors') }
+        sponsorSection(wait: true, required: false)  { i -> module Gr8ConfSponsorSectionModule, $('div.sponsors', i) }
     }
 }
