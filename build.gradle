@@ -5,8 +5,20 @@ ext {
     seleniumVersion = '2.53.0'
 }
 
-apply plugin: 'groovy'
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+apply plugin: "groovy"
 apply plugin: "codenarc"
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = "groovycalamari.gebwebbot.gr8conf.Main"
+
 
 repositories {
     mavenCentral()
