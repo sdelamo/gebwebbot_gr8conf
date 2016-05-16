@@ -10,6 +10,7 @@ class Main {
     static final String CMD_SPONSORS = 'sponsors'
 
     static final String OUTPUT_SQLITE = 'sqlite'
+    static final String OUTPUT_PLIST = 'plist'
 
     @SuppressWarnings('JavaIoPackageAccess')
     static void main(String[] args) {
@@ -41,6 +42,18 @@ class Main {
                 Set<Sponsor> sponsors = sponsorsFetcher.fetchSponsors()
                 Sponsor.saveCollectionAsSQLite(filename, destionationPath, sponsors)
                 break
+
+            case "${CMD_CREW}|${OUTPUT_PLIST}":
+                CrewFetcher crewFetcher = new Gr8CrewFetcher()
+                Set<Crew> crew = crewFetcher.fetchCrew()
+                Crew.saveCollectionAsPlist(filename, destionationPath, crew)
+                break
+
+            case "${CMD_SPONSORS}|${OUTPUT_PLIST}":
+                SponsorFetcher sponsorsFetcher = new Gr8SponsorsFetcher()
+                Set<Sponsor> sponsors = sponsorsFetcher.fetchSponsors()
+                Sponsor.saveCollectionAsPlist(filename, destionationPath, sponsors)
+                break
         }
     }
 
@@ -49,7 +62,7 @@ class Main {
     }
 
     static List<String> availableOutputs() {
-        [OUTPUT_SQLITE]
+        [OUTPUT_SQLITE, OUTPUT_PLIST]
     }
 
     @SuppressWarnings(['Println'])

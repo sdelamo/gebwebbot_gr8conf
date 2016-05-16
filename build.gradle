@@ -11,6 +11,7 @@ ext {
     phantomJsVersion = '2.1.1'
     phantomJsDriverVersion = '1.2.1'
     sqliteVersion = '3.8.11.2'
+    ddPlistVersion = '1.16'
 }
 
 buildscript {
@@ -47,6 +48,8 @@ dependencies {
     }
 
     runtime "org.xerial:sqlite-jdbc:$sqliteVersion"
+
+    compile "com.googlecode.plist:dd-plist:$ddPlistVersion"
 }
 
 codenarcMain {
