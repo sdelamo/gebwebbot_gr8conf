@@ -1,0 +1,72 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+import org.apache.commons.io.FileUtils
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "commons-io:commons-io:2.4"
+    }
+}
+
+task setUpPhantomJs(type: Copy) {
+
+    def osFilenamePart
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        osFilenamePart = "windows.zip"
+    } else if (Os.isFamily(Os.FAMILY_MAC)) {
+        osFilenamePart = "macosx.zip"
+    } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+        osFilenamePart = Os.isArch("amd64") ? "linux-x86_64.tar.bz2" : "linux-i686.tar.bz2"
+    }
+
+    def filename = "phantomjs-$phantomJsVersion-$osFilenamePart"
+    inputs.property("phantomJsVersion", phantomJsVersion)
+
+    def outputDir = file("$buildDir/webdriver/phantomjs")
+    outputs.dir(outputDir)
+
+    def archive = "./webdrivers/$filename"
+
+    if (!file(archive).exists()) {
+        println "downloading driver ${filename}"
+        FileUtils.copyURLToFile(new URL("https://bitbucket.org/ariya/phantomjs/downloads/$filename"), file(archive))
+    }
+
+    from(Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_WINDOWS) ? zipTree(archive) : tarTree(archive))
+    into(outputDir)
+    eachFile { FileCopyDetails fcp ->
+        fcp.relativePath = new RelativePath(!fcp.directory, *fcp.relativePath.segments[1..-1])
+    }
+
+}
+
+task setUpChromeDriver(type: Copy) {
+
+    def driverOsFilenamePart
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        driverOsFilenamePart = "win32"
+    } else if (Os.isFamily(Os.FAMILY_MAC)) {
+        driverOsFilenamePart = "mac32"
+    } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+        driverOsFilenamePart = Os.isArch("amd64") ? "linux64" : "linux32"
+    }
+
+
+    def filename = "chromedriver_${chromeDriverVersion}_${driverOsFilenamePart}.zip"
+    inputs.property("chromeDriverVersion", chromeDriverVersion)
+
+    def outputDir = file("$buildDir/webdriver/chromedriver")
+    outputs.dir(outputDir)
+
+    def archive = "./webdrivers/$filename"
+
+    if (!file(archive).exists()) {
+        println "downloading driver ${filename}"
+        FileUtils.copyURLToFile(new URL("http://chromedriver.storage.googleapis.com/${chromeDriverVersion}/chromedriver_${driverOsFilenamePart}.zip"), file(archive))
+    }
+
+    from(zipTree(archive))
+    into(outputDir)
+}
