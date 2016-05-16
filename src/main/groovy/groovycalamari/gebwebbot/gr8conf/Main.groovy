@@ -11,6 +11,7 @@ class Main {
 
     static final String OUTPUT_SQLITE = 'sqlite'
     static final String OUTPUT_PLIST = 'plist'
+    static final String OUTPUT_CSV = 'csv'
 
     @SuppressWarnings('JavaIoPackageAccess')
     static void main(String[] args) {
@@ -29,30 +30,43 @@ class Main {
         String destionationPath = args[1]
         String filename = args[2]
         String output = args[3]
+        CrewFetcher crewFetcher = cmd == CMD_CREW ? new Gr8CrewFetcher() : null
+        SponsorFetcher sponsorsFetcher = cmd == CMD_SPONSORS ? new Gr8SponsorsFetcher() : null
+        Set<Crew> crew = []
+        Set<Sponsor> sponsors = []
+
+        switch (cmd) {
+            case CMD_CREW:
+                crew = crewFetcher.fetchCrew()
+                break
+            case CMD_SPONSORS:
+                sponsors = sponsorsFetcher.fetchSponsors()
+                break
+        }
 
         switch ( "${cmd}|${output}" ) {
             case "${CMD_CREW}|${OUTPUT_SQLITE}":
-                CrewFetcher crewFetcher = new Gr8CrewFetcher()
-                Set<Crew> crew = crewFetcher.fetchCrew()
                 Crew.saveCollectionAsSQLite(filename, destionationPath, crew)
                 break
 
             case "${CMD_SPONSORS}|${OUTPUT_SQLITE}":
-                SponsorFetcher sponsorsFetcher = new Gr8SponsorsFetcher()
-                Set<Sponsor> sponsors = sponsorsFetcher.fetchSponsors()
                 Sponsor.saveCollectionAsSQLite(filename, destionationPath, sponsors)
                 break
 
             case "${CMD_CREW}|${OUTPUT_PLIST}":
-                CrewFetcher crewFetcher = new Gr8CrewFetcher()
-                Set<Crew> crew = crewFetcher.fetchCrew()
                 Crew.saveCollectionAsPlist(filename, destionationPath, crew)
                 break
 
             case "${CMD_SPONSORS}|${OUTPUT_PLIST}":
-                SponsorFetcher sponsorsFetcher = new Gr8SponsorsFetcher()
-                Set<Sponsor> sponsors = sponsorsFetcher.fetchSponsors()
                 Sponsor.saveCollectionAsPlist(filename, destionationPath, sponsors)
+                break
+
+            case "${CMD_CREW}|${OUTPUT_CSV}":
+                Crew.saveCollectionAsCsv(filename, destionationPath, crew, ';')
+                break
+
+            case "${CMD_SPONSORS}|${OUTPUT_CSV}":
+                Sponsor.saveCollectionAsCsv(filename, destionationPath, sponsors, ';')
                 break
         }
     }
@@ -62,7 +76,7 @@ class Main {
     }
 
     static List<String> availableOutputs() {
-        [OUTPUT_SQLITE, OUTPUT_PLIST]
+        [OUTPUT_SQLITE, OUTPUT_PLIST, OUTPUT_CSV]
     }
 
     @SuppressWarnings(['Println'])
