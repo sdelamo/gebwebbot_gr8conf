@@ -4,11 +4,11 @@ import spock.lang.Specification
 
 class SqliteableSpec extends Specification {
 
-    def "for a class with String, BigDecimal, int properties check the columns names and types are generated correctly"() {
+    def 'test columns names and types are generated correctly for a class with String, BigDecimal, int properties '() {
         when:
         List<String> columns = Product.columnsWithType()
 
-        def expectedColumns = ['date_created TEXT','minimum_qty_purchase INTEGER','price REAL','name TEXT']
+        def expectedColumns = ['date_created TEXT', 'minimum_qty_purchase INTEGER', 'price REAL', 'name TEXT']
         then:
         columns
         columns.size() == 4
@@ -31,11 +31,12 @@ class SqliteableSpec extends Specification {
         sqlStr == "DROP TABLE IF EXISTS ${expectedTableName}"
     }
 
-    def "the class should persist calling saveAsSQLite"() {
+    @SuppressWarnings('JavaIoPackageAccess')
+    def 'tests the class should persist calling saveAsSQLite'() {
         given:
-        def path = "build/"
+        def path = 'build/'
 
-        def p = new Product(name: 'Supersonic',price: 119.0)
+        def p = new Product(name: 'Supersonic', price: 119.0)
 
         when:
         p.saveAsSQLite('products', path)
@@ -45,7 +46,7 @@ class SqliteableSpec extends Specification {
 
         when:
         def otherProduct = new Product(name: 'Torpedo', price: 100.0)
-        Product.saveCollectionAsSQLite('multipleproducts',path,[p, otherProduct])
+        Product.saveCollectionAsSQLite('multipleproducts', path, [p, otherProduct])
 
         then:
         new File("${path}/multipleproducts.sqlite").exists()

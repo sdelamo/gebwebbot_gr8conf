@@ -20,7 +20,7 @@ class Main {
                 !new File(args[1]).isDirectory() ||
                 !(args[3] in availableOutputs())
         )
-        if(wrongArgs) {
+        if ( wrongArgs ) {
             usage()
             return
         }
