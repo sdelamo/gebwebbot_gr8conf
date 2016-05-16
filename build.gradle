@@ -20,6 +20,7 @@ dependencies {
     }
 
     compile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    testRuntime "org.xerial:sqlite-jdbc:3.8.11.2"
 }
 
 codenarcMain {

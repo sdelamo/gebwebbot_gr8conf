@@ -61,7 +61,7 @@ ruleset {
     ThrowExceptionFromFinallyBlock
 
     // rulesets/braces.xml
-    ElseBlockBraces(bracesRequiredForElseIf: true)
+    ElseBlockBraces(bracesRequiredForElseIf: false)
     ForStatementBraces
     IfStatementBraces
     WhileStatementBraces
