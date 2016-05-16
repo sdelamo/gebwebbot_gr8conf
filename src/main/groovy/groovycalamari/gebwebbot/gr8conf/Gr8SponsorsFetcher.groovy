@@ -9,7 +9,7 @@ class Gr8SponsorsFetcher implements ConferenceFetcher, Fetcher {
 
     @Override
     Set<Sponsor> fetchSponsors() {
-        def result = [] as Set
+        def result = [] as Set<Sponsor>
         browser.drive(baseUrl: Gr8EuWebsite.BASE_URL) {
             to Gr8ConfEuHomePage
             if ( hasSponsorSections() ) {
@@ -22,7 +22,7 @@ class Gr8SponsorsFetcher implements ConferenceFetcher, Fetcher {
     }
 
     Set<Sponsor> fetchSponsorsAtSection(def section) {
-        def result = [] as Set
+        def result = [] as Set<Sponsor>
         for ( int i = 0; i < section.sponsors.size(); i++ ) {
             def s = section.sponsor(i)
             result << new Sponsor(url: s.sponsorUrl, imageUrl: s.sponsorImageUrl, kind: section.kind)

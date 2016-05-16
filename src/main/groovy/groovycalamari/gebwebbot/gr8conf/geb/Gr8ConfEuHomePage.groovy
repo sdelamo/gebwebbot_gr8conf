@@ -3,6 +3,7 @@ package groovycalamari.gebwebbot.gr8conf.geb
 import geb.Page
 
 class Gr8ConfEuHomePage extends Page {
+    static url = '#/'
 
     static content = {
         sponsorSections(required: false) { $('div.sponsors') }
