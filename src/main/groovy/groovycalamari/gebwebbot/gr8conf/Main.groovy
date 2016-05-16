@@ -4,6 +4,7 @@ import groovycalamari.gebwebbot.conference.Sponsor
 import groovycalamari.gebwebbot.conference.SponsorFetcher
 import groovycalamari.gebwebbot.conference.Crew
 import groovycalamari.gebwebbot.conference.CrewFetcher
+import org.openqa.selenium.phantomjs.PhantomJSDriver
 
 class Main {
     static final String CMD_CREW = 'crew'
@@ -17,10 +18,11 @@ class Main {
     static void main(String[] args) {
 
         boolean wrongArgs = (
-                (args.size() < 4) ||
+                (args.size() < 5) ||
                 !(args[0] in availableCommands()) ||
                 !new File(args[1]).isDirectory() ||
-                !(args[3] in availableOutputs())
+                !(args[3] in availableOutputs()) ||
+                !new File(args[4]).exists()
         )
         if ( wrongArgs ) {
             usage()
@@ -30,16 +32,21 @@ class Main {
         String destionationPath = args[1]
         String filename = args[2]
         String output = args[3]
-        CrewFetcher crewFetcher = cmd == CMD_CREW ? new Gr8CrewFetcher() : null
-        SponsorFetcher sponsorsFetcher = cmd == CMD_SPONSORS ? new Gr8SponsorsFetcher() : null
+        String phatonmJsExecutable = args[4]
+        System.setProperty('phantomjs.binary.path', phatonmJsExecutable)
+
+        CrewFetcher crewFetcher
+        SponsorFetcher sponsorsFetcher
         Set<Crew> crew = []
         Set<Sponsor> sponsors = []
 
         switch (cmd) {
             case CMD_CREW:
+                crewFetcher = new Gr8CrewFetcher()
                 crew = crewFetcher.fetchCrew()
                 break
             case CMD_SPONSORS:
+                sponsorsFetcher = new Gr8SponsorsFetcher()
                 sponsors = sponsorsFetcher.fetchSponsors()
                 break
         }

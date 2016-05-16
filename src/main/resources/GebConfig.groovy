@@ -6,6 +6,8 @@ waiting {
     timeout = 5
 }
 
+driver = { new PhantomJSDriver() }
+
 environments {
     // run via “./gradlew chromeTest”
     // See: http://code.google.com/p/selenium/wiki/ChromeDriver
