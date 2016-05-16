@@ -11,8 +11,6 @@ class Gr8CrewFetcher implements Fetcher, CrewFetcher {
         def result = [] as Set<Crew>
         browser.drive(baseUrl: Gr8EuWebsite.BASE_URL) {
             to Gr8ConfCrewPage
-
-            log "Size: ${crewMembers.size()}"
             for (int i = 0; i < crewMembers.size(); i++ ) {
                 def c = crewMember(i)
                 result << new Crew (
@@ -23,7 +21,6 @@ class Gr8CrewFetcher implements Fetcher, CrewFetcher {
                         twitter: c.twitter() ?: null
                 )
             }
-
         }
         result
     }
