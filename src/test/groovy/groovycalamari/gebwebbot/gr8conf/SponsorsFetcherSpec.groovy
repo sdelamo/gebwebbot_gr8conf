@@ -17,10 +17,12 @@ class SponsorsFetcherSpec extends Specification {
                 ['https://www.jfrog.com/', '/images/eu/sponsors/jfrog.png', 'Partners'],
                 ['https://www.codefresh.io/', '/images/eu/sponsors/codefresh.png', 'Partners'],
                 ['https://www.innoq.de/', '/images/eu/sponsors/innoq.png', 'Partners'],
+                ['http://www.shoptimix.com/', '/images/eu/sponsors/shoptimix.png', 'Partners'],
                 ['https://www.autentia.com/', '/images/eu/sponsors/autentia.png', 'Media sponsor'],
                 ['http://gradle.org/', '/images/eu/sponsors/gradle.png', 'Organizers'],
                 ['http://gennemtaenkt.dk/', '/images/eu/sponsors/gennemtaenktit.png', 'Organizers'],
                 ['http://easyspeedy.dk/', '/images/eu/sponsors/easyspeedy.png', 'Hosting Sponsors'],
+
         ]
         sponsorsList.collect { new Sponsor(url: it[0], imageUrl: "http://gr8conf.eu${it[1]}", kind: it[2]) }
     }
@@ -30,7 +32,7 @@ class SponsorsFetcherSpec extends Specification {
         def expectedSponsors = expectedSponsors()
 
         then:
-        expectedSponsors.size() == 14
+        expectedSponsors.size() == 15
         expectedSponsors.each {
             assert it.imageUrl
             assert it.url
@@ -40,6 +42,7 @@ class SponsorsFetcherSpec extends Specification {
 
     def "test sponsors are fetched correctly"() {
         given:
+
         def fetcher = new Gr8SponsorsFetcher()
 
         when:

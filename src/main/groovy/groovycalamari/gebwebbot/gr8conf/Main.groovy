@@ -1,10 +1,9 @@
 package groovycalamari.gebwebbot.gr8conf
 
-import groovycalamari.gebwebbot.conference.Sponsor
-import groovycalamari.gebwebbot.conference.SponsorFetcher
 import groovycalamari.gebwebbot.conference.Crew
 import groovycalamari.gebwebbot.conference.CrewFetcher
-import org.openqa.selenium.phantomjs.PhantomJSDriver
+import groovycalamari.gebwebbot.conference.Sponsor
+import groovycalamari.gebwebbot.conference.SponsorFetcher
 
 class Main {
     static final String CMD_CREW = 'crew'

@@ -1,8 +1,6 @@
 package groovycalamari.gebwebbot.geb
 
 import geb.Browser
-import geb.Configuration
-import org.openqa.selenium.WebDriver
 import groovy.transform.CompileStatic
 
 @CompileStatic
