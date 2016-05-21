@@ -7,12 +7,12 @@ waiting {
 }
 
 if(System.getProperty('phantomjs.binary.path')) {
-    driver = new PhantomJSDriver()
+    driver = { new PhantomJSDriver() }
 }
 
 if(System.getenv('phantomjs.binary.path') && !System.getProperty('phantomjs.binary.path')) {
     System.setProperty('phantomjs.binary.path', System.getenv('phantomjs.binary.path'))
-    driver = new PhantomJSDriver()
+    driver = {new PhantomJSDriver() }
 }
 
 environments {
