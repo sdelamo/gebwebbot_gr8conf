@@ -7,22 +7,7 @@ class Gr8ConfCrewModule extends Module {
         name { $('p.name strong', 0).text() }
         imageUrl { $('img', 0).getAttribute('src') }
         title(required: false) { $('p em', 0).text() }
-        links { $('p a') }
-    }
-
-    def twitter() {
-        for (def link in links) {
-            if ( link.getAttribute('href').indexOf('twitter.com') != -1 ) {
-                return link.text()
-            }
-        }
-    }
-
-    def company() {
-        for (def link in links) {
-            if ( link.getAttribute('href').indexOf('twitter.com') == -1 ) {
-                return link.text()
-            }
-        }
+        twitter(required: false) { $('p a', href: contains('twitter.com')).text() }
+        company(required: false) { $('p a', href: notContains('twitter.com')).text() }
     }
 }

@@ -17,8 +17,8 @@ class Gr8CrewFetcher implements Fetcher, CrewFetcher {
                         name: c.name,
                         imageUrl: c.imageUrl,
                         title: c.title ?: null,
-                        company: c.company(),
-                        twitter: c.twitter() ?: null
+                        company: c.company ?: null,
+                        twitter: c.twitter ?: null
                 )
             }
         }
