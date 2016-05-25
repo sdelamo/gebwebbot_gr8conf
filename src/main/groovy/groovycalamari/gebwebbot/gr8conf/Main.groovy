@@ -89,6 +89,12 @@ class Main {
     static void usage() {
         def cmds = availableCommands().join('|')
         def outputs = availableOutputs().join('|')
-        println "java -jar project-all.jar $cmds /destionation/folder filename_without_suffix $outputs phantomjs.binary.path"
+        def params = [
+                        cmds,
+                        'destionation/folder',
+                        'filename_without_suffix',
+                        outputs,
+                        'phantomjs.binary.path']
+        println "java -jar project-all.jar $cmds ${params.join(' ')}"
     }
 }
