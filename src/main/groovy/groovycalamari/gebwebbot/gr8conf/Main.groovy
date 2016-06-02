@@ -17,13 +17,16 @@ class Main {
     static void main(String[] args) {
 
         boolean wrongArgs = (
-                (args.size() < 5) ||
-                !(args[0] in availableCommands()) ||
-                !new File(args[1]).isDirectory() ||
-                !(args[3] in availableOutputs()) ||
-                !new File(args[4]).exists()
+                (args.size() < 4) ||
+                        !(args[0] in availableCommands()) ||
+                        !new File(args[1]).isDirectory() ||
+                        !(args[3] in availableOutputs())
+
         )
-        if ( wrongArgs ) {
+        if(args.size() >= 5 && !new File(args[4]).exists()) {
+            wrongArgs = true
+        }
+        if (wrongArgs) {
             usage()
             return
         }
@@ -31,8 +34,10 @@ class Main {
         String destionationPath = args[1]
         String filename = args[2]
         String output = args[3]
-        String phatonmJsExecutable = args[4]
-        System.setProperty('phantomjs.binary.path', phatonmJsExecutable)
+        if (args.size() >= 5) {
+            String phatonmJsExecutable = args[4]
+            System.setProperty('phantomjs.binary.path', phatonmJsExecutable)
+        }
 
         CrewFetcher crewFetcher
         SponsorFetcher sponsorsFetcher
