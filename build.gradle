@@ -26,12 +26,11 @@ buildscript {
 
 apply plugin: "groovy"
 apply plugin: "codenarc"
-apply from: "gradle/osSpecificDownloads.gradle"
+apply from: rootProject.file('gradle/osSpecificDownloads.gradle')
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 mainClassName = "groovycalamari.gebwebbot.gr8conf.Main"
-
 
 repositories {
     jcenter()
